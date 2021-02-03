@@ -8,7 +8,7 @@ Member | Email | Photo
 Shashank | saddagarla@stanford.edu | TODO
 Kevin | huke@stanford.edu | <img src="https://github.com/cs210/vmware/blob/master/photos/kevin.JPG?raw=false" width=200>
 Siddhartha | kachapah@stanford.edu | <img src="https://github.com/cs210/vmware/blob/master/photos/siddhartha3.jpg?raw=false" width=200>
-Manan | manans@stanford.edu | TODO
+Manan | manans@stanford.edu | <img src="https://github.com/cs210/vmware/blob/master/photos/manan.jpeg?raw=false" width=200>
  
 ## Team Skills Matrix
  

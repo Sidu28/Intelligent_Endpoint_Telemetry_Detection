@@ -1,7 +1,6 @@
 ## Project Overview
 
-To complete.
-
+In this project we seek to build a product that provides a comprehensive approach to file security.  Specifically, we aim to a) Establish a common, open-source standard for representation of file/endpoint telemetry and b) Leverage our developed standard with machine intelligence algorithms to develop a privacy-aware malware detection system that utilizes system-level information to recognize the presence of malware in a given file.
 ## Team Members
  
 Member | Email | Photo

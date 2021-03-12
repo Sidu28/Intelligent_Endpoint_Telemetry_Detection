@@ -13,7 +13,7 @@ from features.section_info import SectionInfoExtractor
 # Dictionary of available feature extractors, along with keyword arguments
 feature_extractors = {
   ASMExtractor: None,
-  SectionInfoExtractor: None
+  SectionInfoExtractor: None,
 }
 
 if __name__ == '__main__':
@@ -24,7 +24,8 @@ if __name__ == '__main__':
   features = {}
 
   for extractor in feature_extractors:
+    kwargs = feature_extractors[extractor]
     e = extractor(args.file)
-    features.update(e.extract())
+    features.update(e.extract(kwargs=kwargs))
 
   print(features)

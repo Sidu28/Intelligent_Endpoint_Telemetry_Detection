@@ -18,7 +18,7 @@ class ASMExtractor(FeatureExtractor):
     
     return disassembly
   
-  def extract(self):
+  def extract(self, **kwargs):
     features = {
       'eax_count': None
     }

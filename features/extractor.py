@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import pefile
+# import lief
 
 """
 Abstract class required for feature extractors to override.
@@ -29,7 +30,7 @@ class FeatureExtractor(ABC):
     if not self.lief_parsed: self.lief_parsed = lief.parse(self.file)
 
   """
-  Every feature extractor must expose a methor extract, which takes optional 
+  Every feature extractor must expose a method extract, which takes optional 
   keyword arguments and returns a dictionary of features.
   """
   @abstractmethod

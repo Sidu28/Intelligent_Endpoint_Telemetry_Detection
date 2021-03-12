@@ -8,10 +8,12 @@ import pefile
 
 # Relevant modules
 from features.asm import ASMExtractor
+from features.section_info import SectionInfoExtractor
 
 # Dictionary of available feature extractors, along with keyword arguments
 feature_extractors = {
-  ASMExtractor: None
+  ASMExtractor: None,
+  SectionInfoExtractor: None
 }
 
 if __name__ == '__main__':

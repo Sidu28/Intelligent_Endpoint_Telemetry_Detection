@@ -1,3 +1,22 @@
+## Setup Instructions
+
+Create a virtual environment (for sake of example, called `venv`):
+```
+python3 -m virtualenv venv
+```
+Enter your virtual environment
+```
+source venv/bin/activate
+```
+Install requirements
+```
+pip3 install -r requirements.txt
+```
+Extract features on a PE file
+```
+python3 main.py [filename]
+```
+
 ## Team Members
  
 Member | Email | Photo

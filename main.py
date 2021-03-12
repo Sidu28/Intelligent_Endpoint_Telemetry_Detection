@@ -1,6 +1,7 @@
 import os
 import sys
 import argparse
+from pprint import pprint
 
 # PE file related imports
 import pefile
@@ -28,4 +29,4 @@ if __name__ == '__main__':
     e = extractor(args.file)
     features.update(e.extract(kwargs=kwargs))
 
-  print(features)
+  pprint(features)

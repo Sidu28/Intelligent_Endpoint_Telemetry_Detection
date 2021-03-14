@@ -3,7 +3,7 @@ import os
 import hashlib
 from virustotal_python import Virustotal
 
-VIRUSTOTAL_API_KEY = "33ead553fdea8f3397f2804c0011aca761bba34c64f015ef866aa595a29ce1ac"
+VIRUSTOTAL_API_KEY = ""
 
 class VirusTotalExtractor(FeatureExtractor):
   

@@ -18,6 +18,14 @@ class FeatureExtractor(ABC):
     super().__init__()
   
   """
+  Setter method to allow for re-use of an extractor class across multiple
+  files. We don't allow a user to set pefile_parsed, as this might result in
+  internal inconsistencies.
+  """
+  def set_file(self, file):
+    self.file = file
+
+  """
   Helper method to generate pefile_parsed
   """
   def pefile_parse(self):

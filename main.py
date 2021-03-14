@@ -10,11 +10,13 @@ import pefile
 # Relevant modules
 from features.asm import ASMExtractor
 from features.section_info import SectionInfoExtractor
+from features.virustotal import VirusTotalExtractor
 
 # Dictionary of available feature extractors, along with keyword arguments
 feature_extractors = {
   ASMExtractor: None,
   SectionInfoExtractor: None,
+  VirusTotalExtractor: None # should the API key be a keyword argument?
 }
 
 if __name__ == '__main__':

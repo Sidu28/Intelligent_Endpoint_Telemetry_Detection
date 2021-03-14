@@ -1,6 +1,26 @@
 ## Project Overview
 
 In this project we seek to build a product that provides a comprehensive approach to file security.  Specifically, we aim to a) Establish a common, open-source standard for representation of file/endpoint telemetry and b) Leverage our developed standard with machine intelligence algorithms to develop a privacy-aware malware detection system that utilizes system-level information to recognize the presence of malware in a given file.
+
+## Setup Instructions
+
+Create a virtual environment (for sake of example, called `venv`):
+```
+python3 -m virtualenv venv
+```
+Enter your virtual environment
+```
+source venv/bin/activate
+```
+Install requirements
+```
+pip3 install -r requirements.txt
+```
+Extract features on a PE file
+```
+python3 main.py [filename]
+```
+
 ## Team Members
  
 Member | Email | Photo

@@ -27,7 +27,9 @@ feature_extractors = {
 def main():
   parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
   parser.add_argument('dir', type=str, help="Directory containing PE files to extract features for")
+  parser.add_argument('label', type=int, default=1, help="Label for the PE Files you are processing")
   args = parser.parse_args()
+  
 
   rows = []
 
@@ -43,7 +45,7 @@ def main():
       rows.append(features)
 
   df = pd.DataFrame(rows)
-  df['label'] = 1
+  df['label'] = args.label
 
   directory = os.path.join(os.getcwd(), 'data')
   if not os.path.isdir(directory):
@@ -51,14 +53,6 @@ def main():
 
 
   df.to_csv(directory+'/features_'+str(uuid.uuid4())+".csv")
-  '''
-  for col_idx in range(0,10):
-      col = df.iloc[:,col_idx]
-      plt.hist(col, color='blue', edgecolor='black',
-               bins=int(180 / 5))
-      plt.savefig(str(uuid.uuid4())+'.png')
-
-  '''
   directory = os.path.join(os.getcwd(), 'data/images')
   if not os.path.isdir(directory):
     os.mkdir(directory)

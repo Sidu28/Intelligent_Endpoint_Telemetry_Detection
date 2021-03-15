@@ -18,12 +18,12 @@ pip3 install -r requirements.txt
 ```
 Extract sample features on a PE file
 ```
-python3 main.py [filename]
+python3 main.py --file=[FILENAME]
 ```
 
-Extract features for multiple files into a dataframe and generate visualizations:
+Extract features for multiple files into a dataframe and generate visualizations.  Specify directory containing PE files, and optionally a label for those files.  Default label value is 1.
 ```
-python3 feat_extract.py [directory containing PE files]
+python3 main.py --dir=[DIRECTORY] --label=[0 or 1]
 ```
 
 

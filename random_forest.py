@@ -2,11 +2,8 @@ import os, sys
 import pickle
 import argparse
 
-from category_encoders.binary import BinaryEncoder
-from category_encoders.leave_one_out import LeaveOneOutEncoder
-from category_encoders.target_encoder import TargetEncoder
+
 from matplotlib import rcParams
-import openpyxl  # for Excel exports
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import make_scorer
 from sklearn.metrics import mean_squared_error
@@ -19,10 +16,10 @@ from matplotlib import pyplot as plt
 
 
 class RFPredictor(object):
-    def __init__(self):
+    def __init__(self, file):
 
         self.script_dir = os.path.dirname(__file__)
-        self.df = pd.read_csv('/Users/sidu/Downloads/vmware/features.csv')
+        self.df = pd.read_csv(file)
         self.X = self.df.iloc[:,0:-1]
         self.y = self.df.iloc[:,-1]
 
@@ -154,13 +151,12 @@ class RFPredictor(object):
 
 
 if __name__ == '__main__':
-    '''
+
     parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
     parser.add_argument('file', type=str, help="file containing PE file features")
     args = parser.parse_args()
-    '''
 
-    RFPredictor().run()
+    RFPredictor(args.file).run()
 
 
 

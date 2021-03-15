@@ -29,7 +29,7 @@ class RFPredictor(object):
         self.rand_forest = RandomForestRegressor()
 
     # ------------------------------------
-    # run
+    # run - Main function
     # -------------------
 
     def run(self):
@@ -44,17 +44,11 @@ class RFPredictor(object):
         print(rmse)
 
         x = self.X.dropna(axis=1)
-        '''
-        fig = plt.figure(figsize=(10, 5))
-        plt.barh(x.columns, important_features)
-        plt.xlabel("Courses offered")
-        plt.ylabel("No. of students enrolled")
-        plt.title("Students enrolled in different courses")
-        plt.show()
-        '''
+
 
     # ------------------------------------
-    # predict
+    # predict - Fits the random forest predictor with
+    # multiple train and validations splits
     # -------------------
 
     def predict_one_election_kfolds(self, X_df, y_series):
@@ -65,21 +59,7 @@ class RFPredictor(object):
         pred, truth = X_df, y_series
 
         rf_optimal_parms_path = os.path.join(self.script_dir, 'best_params.pickle')
-        '''
-        try:
-            with open(rf_optimal_parms_path, 'rb') as fd:
-                best_params = pickle.load(fd)
-                # The '**' signals that best_params
-                # is a dict, and should be used as
-                # kwargs:
-                self.rand_forest.set_params(**best_params)
-        except FileNotFoundError:
-            # No previously stored parms
-            best_params = self.optimize_hyperparameters(self.X, self.y)
-            with open(rf_optimal_parms_path, 'wb') as fd:
-                # Save as a text format:
-                pickle.dump(best_params, fd, protocol=0)
-        '''
+
         pred_arr = []
         for train_idx, test_idx in kf.split(X_df):
 
@@ -109,7 +89,7 @@ class RFPredictor(object):
         return pred_arr, important_features
 
     # ------------------------------------
-    # evaluate model
+    # evaluates the model using RMSE
     # -------------------
 
     def evaluate_model(self, predictions, test_labels):

@@ -2,6 +2,10 @@ import os
 import sys
 import argparse
 from pprint import pprint
+import pandas as pd
+import seaborn as sns
+import random
+import matplotlib.pyplot as plt
 
 # PE file related imports
 import pefile
@@ -53,7 +57,8 @@ if __name__ == '__main__':
     if not os.path.isdir(directory):
       os.mkdir(directory)
 
-    df.to_csv(directory + '/features_' + str(uuid.uuid4()) + ".csv")
+    name = str(random.randint(1111,9999))
+    df.to_csv(directory + '/features_' + name + ".csv")
     directory = os.path.join(os.getcwd(), 'data/images')
     if not os.path.isdir(directory):
       os.mkdir(directory)
@@ -62,7 +67,7 @@ if __name__ == '__main__':
     fig, axes = plt.subplots(ncols=10, figsize=(22.9, 5))
     for ax, col in zip(axes, df.columns):
       plot = sns.distplot(df[col], ax=ax)
-    plt.savefig('data/images/' + str(uuid.uuid4()) + ".png")
+    plt.savefig('data/images/image_' + name + ".png")
 
   elif args.file:
       features = {}

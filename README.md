@@ -16,9 +16,18 @@ Install requirements
 ```
 pip3 install -r requirements.txt
 ```
-Extract features on a PE file
+Extract sample features on a PE file
 ```
 python3 main.py [filename]
+```
+
+Extract features for multiple files into a dataframe
+```
+python3 feat_extract.py [directory containing PE files]
+```
+Generate distribution plots for salient features:
+```
+python3 visualization.py [csv file containing dataframe]
 ```
 
 ## Team Members

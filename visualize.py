@@ -22,14 +22,14 @@ def main():
         plt.savefig(str(uuid.uuid4())+'.png')
 
     '''
-    directory = os.path.join(os.getcwd(), 'images')
+    directory = os.path.join(os.getcwd(), 'data/images')
     if not os.path.isdir(directory):
         os.mkdir(directory)
 
     fig, axes = plt.subplots(ncols=10, figsize=(22.9, 5 ))
     for ax, col in zip(axes, df.columns):
         plot = sns.distplot(df[col], ax=ax)
-    plt.savefig('images/'+str(uuid.uuid4())+".png")
+    plt.savefig('data/images/'+str(uuid.uuid4())+".png")
 
 
 if __name__ == '__main__':

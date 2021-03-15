@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9194d9dd-330d-4cf0-a3f6-93fdbee0a116" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/feat_extractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/visualize.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/virustotal.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/virustotal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/feat_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/feat_extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualize.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualize.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

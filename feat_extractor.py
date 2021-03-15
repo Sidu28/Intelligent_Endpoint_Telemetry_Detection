@@ -42,7 +42,10 @@ def main():
   df = pd.DataFrame(rows)
   df['label'] = 1
 
-  df.to_csv('features_'+str(uuid.uuid4())+".csv")
+  directory = os.path.join(os.getcwd(), 'data')
+  if not os.path.isdir(directory):
+    os.mkdir(directory)
+  df.to_csv(directory+'/features_'+str(uuid.uuid4())+".csv")
 
 if __name__ == '__main__':
   main()

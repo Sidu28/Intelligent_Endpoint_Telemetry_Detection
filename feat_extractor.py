@@ -44,6 +44,7 @@ def main():
           
       rows.append(features)
 
+  #Create dataframe using the feature extractors
   df = pd.DataFrame(rows)
   df['label'] = args.label
 
@@ -57,6 +58,7 @@ def main():
   if not os.path.isdir(directory):
     os.mkdir(directory)
 
+  #Plot the distributions of the important features
   fig, axes = plt.subplots(ncols=10, figsize=(22.9, 5))
   for ax, col in zip(axes, df.columns):
     plot = sns.distplot(df[col], ax=ax)

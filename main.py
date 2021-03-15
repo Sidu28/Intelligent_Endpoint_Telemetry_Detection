@@ -27,7 +27,10 @@ if __name__ == '__main__':
   parser.add_argument('--label', type=int, required=False, default=1, help="Label for the PE Files you are processing")
   args = parser.parse_args()
 
-  if not args.file and args.dir:
+  if args.file and args.dir:
+    parser.error('specify either directory or file')
+
+  if args.dir:
 
     rows = []
 
@@ -70,6 +73,7 @@ if __name__ == '__main__':
         features.update(e.extract(kwargs=kwargs))
 
       pprint(features)
+
 
   else:
     parser.error('check your command line arguments')

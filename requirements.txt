@@ -4,5 +4,3 @@ virustotal-python
 requests
 pandas
 seaborn
-
-

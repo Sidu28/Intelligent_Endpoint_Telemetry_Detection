@@ -14,7 +14,7 @@ import pefile
 # Relevant modules
 from features.asm import ASMExtractor
 from features.section_info import SectionInfoExtractor
-from features.virustotal import VirusTotalExtractor
+#from features.virustotal import VirusTotalExtractor
 
 # Dictionary of available feature extractors, along with keyword arguments
 feature_extractors = {
@@ -42,12 +42,16 @@ if __name__ == '__main__':
       if not file.startswith('.'):
         file = os.path.join(args.dir, file)
         features = {}
-        for extractor in feature_extractors:
-          kwargs = feature_extractors[extractor]
-          e = extractor(file)
-          features.update(e.extract(kwargs=kwargs))
+        try:
+          for extractor in feature_extractors:
+            kwargs = feature_extractors[extractor]
+            e = extractor(file)
+            features.update(e.extract(kwargs=kwargs))
 
-        rows.append(features)
+
+          rows.append(features)
+        except Exception:
+          continue
 
     # Create dataframe using the feature extractors
     df = pd.DataFrame(rows)

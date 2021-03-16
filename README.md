@@ -28,7 +28,7 @@ python3 main.py --dir=[DIRECTORY] --label=[0 or 1]
 
 Run randomforest on extracted features
 ```
-python3 random_forest.py file=[FILENAME]
+python3 random_forest.py --file=[FILENAME]
 ```
 
 

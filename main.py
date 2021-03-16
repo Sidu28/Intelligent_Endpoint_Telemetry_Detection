@@ -42,6 +42,7 @@ if __name__ == '__main__':
       if not file.startswith('.'):
         file = os.path.join(args.dir, file)
         features = {}
+
         try:
           for extractor in feature_extractors:
             kwargs = feature_extractors[extractor]

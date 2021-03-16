@@ -2,3 +2,5 @@ pefile
 capstone
 virustotal-python
 requests
+pandas
+seaborn

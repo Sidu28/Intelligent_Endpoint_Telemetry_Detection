@@ -16,10 +16,21 @@ Install requirements
 ```
 pip3 install -r requirements.txt
 ```
-Extract features on a PE file
+Extract sample features on a PE file
 ```
-python3 main.py [filename]
+python3 main.py --file=[FILENAME]
 ```
+
+Extract features for multiple files into a dataframe and generate visualizations.  Specify directory containing PE files, and optionally a label for those files.  Default label value is 1.
+```
+python3 main.py --dir=[DIRECTORY] --label=[0 or 1]
+```
+
+Run randomforest on extracted features
+```
+python3 random_forest.py file=[FILENAME]
+```
+
 
 ## Team Members
  

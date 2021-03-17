@@ -53,7 +53,6 @@ if __name__ == '__main__':
             e = extractor(file)
             features.update(e.extract(kwargs=kwargs))
 
-
           rows.append(features)
         except Exception:
           continue
@@ -109,11 +108,5 @@ if __name__ == '__main__':
         plt.savefig('data/images/image_' + name +'_'+ str(i) + ".png")
       idx+=10
 
-
-
   else:
     parser.error('check your command line arguments')
-
-
-
-

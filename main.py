@@ -90,7 +90,7 @@ if __name__ == '__main__':
   elif args.good and args.bad:
     df1 = pd.read_csv(args.good)
     df2 = pd.read_csv(args.bad)
-    common_cols = np.intersect1d(df1.columns, df2.columns)
+    common_cols = pd.Series(np.intersect1d(df1.columns.values, df2.columns.values))
 
     df1 = df1[common_cols]
     df2 = df2[df1.columns]

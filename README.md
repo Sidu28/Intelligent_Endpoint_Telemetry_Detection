@@ -31,6 +31,11 @@ Run randomforest on extracted features
 python3 random_forest.py --file=[FILENAME]
 ```
 
+To generate images for comparing feature distributions for associated columns for bad and good PE Files
+```
+python3 main.py --good=[GoodPE CSV] --bad=[BadPE CSV]
+```
+
 
 ## Team Members
  

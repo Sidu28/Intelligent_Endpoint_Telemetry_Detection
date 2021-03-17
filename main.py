@@ -1,6 +1,7 @@
 import os
 import sys
 import argparse
+import numpy as np
 from pprint import pprint
 import pandas as pd
 import seaborn as sns
@@ -14,7 +15,7 @@ import pefile
 # Relevant modules
 from features.asm import ASMExtractor
 from features.section_info import SectionInfoExtractor
-from features.virustotal import VirusTotalExtractor
+#from features.virustotal import VirusTotalExtractor
 
 # Dictionary of available feature extractors, along with keyword arguments
 feature_extractors = {
@@ -29,6 +30,9 @@ if __name__ == '__main__':
   parser.add_argument('--file', type=str, required=False, help="Input PE file to extract features for")
   parser.add_argument('--dir', type=str, required=False, help="Directory containing PE files to extract features for")
   parser.add_argument('--label', type=int, required=False, default=1, help="Label for the PE Files you are processing")
+  parser.add_argument('--good', type=str, required=False, help="Directory containing PE files to extract features for")
+  parser.add_argument('--bad', type=str, required=False, help="Directory containing PE files to extract features for")
+
   args = parser.parse_args()
 
   if args.file and args.dir:
@@ -42,13 +46,12 @@ if __name__ == '__main__':
       if not file.startswith('.'):
         file = os.path.join(args.dir, file)
         features = {}
-        
+
         try:
           for extractor in feature_extractors:
             kwargs = feature_extractors[extractor]
             e = extractor(file)
             features.update(e.extract(kwargs=kwargs))
-
 
           rows.append(features)
         except Exception:
@@ -84,10 +87,26 @@ if __name__ == '__main__':
 
       pprint(features)
 
+  elif args.good and args.bad:
+    df1 = pd.read_csv(args.good)
+    df2 = pd.read_csv(args.bad)
+    common_cols = pd.Series(np.intersect1d(df1.columns.values, df2.columns.values))
+
+    df1 = df1[common_cols]
+    df2 = df2[df1.columns]
+
+    num_cols = len(df1.columns)
+    df_list = [df1, df2]
+    idx=0
+
+    while idx<num_cols:
+      name = str(random.randint(1111, 9999))
+      for i,df in enumerate(df_list):
+        fig, axes = plt.subplots(ncols=10, figsize=(22.9, 5))
+        for ax, col in zip(axes, df.columns[idx:idx+10]):
+          plot = sns.distplot(df[col], ax=ax)
+        plt.savefig('data/images/image_' + name +'_'+ str(i) + ".png")
+      idx+=10
 
   else:
     parser.error('check your command line arguments')
-
-
-
-

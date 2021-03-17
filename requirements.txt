@@ -4,3 +4,4 @@ virustotal-python
 requests
 pandas
 seaborn
+matplotlib

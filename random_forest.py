@@ -20,8 +20,11 @@ class RFPredictor(object):
 
         self.script_dir = os.path.dirname(__file__)
         self.df = pd.read_csv(file)
-        self.X = self.df.iloc[:,0:-1]
-        self.y = self.df.iloc[:,-1]
+        self.y = self.df['label']
+        self.X = self.df.drop('label', axis=1)
+        self.X = self.X.drop('Unnamed: 0', axis=1)
+        #self.X = self.df.iloc[:,0:-1]
+        #self.y = self.df.iloc[:,-1]
 
         self.rand_forest = RandomForestRegressor()
 
@@ -30,7 +33,6 @@ class RFPredictor(object):
     # -------------------
 
     def run(self):
-
         features = self.X.fillna(0)
         labels = self.y
         array, important_features = self.predict_one_election_kfolds(features, labels)
@@ -40,7 +42,14 @@ class RFPredictor(object):
             rmse.append(self.evaluate_model(pred, truth))
         print(rmse)
 
-        x = self.X.dropna(axis=1)
+        x = self.X
+        fig = plt.figure(figsize=(10, 5))
+        plt.barh(x.columns[14:], important_features[14:])
+        plt.xlabel("Feature Importance According to Random Forest")
+        plt.ylabel("")
+        plt.title("RF Importance Score")
+        plt.show()
+        print(important_features)
 
 
     # ------------------------------------
@@ -152,11 +161,11 @@ class RFPredictor(object):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
-    parser.add_argument('file', type=str, help="file containing PE file features")
-    args = parser.parse_args()
+    #parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
+    #parser.add_argument('file', type=str, help="file containing PE file features")
+    #args = parser.parse_args()
 
-    RFPredictor(args.file).run()
+    RFPredictor('features_good_bad.csv').run()
 
 
 

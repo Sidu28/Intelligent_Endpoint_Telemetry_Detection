@@ -1,8 +1,6 @@
 import os, sys
 import pickle
 import argparse
-
-
 from matplotlib import rcParams
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import make_scorer
@@ -49,7 +47,6 @@ class RFPredictor(object):
         plt.ylabel("")
         plt.title("RF Importance Score")
         plt.show()
-        print(important_features)
 
 
     # ------------------------------------

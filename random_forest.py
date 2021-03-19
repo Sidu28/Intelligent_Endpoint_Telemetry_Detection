@@ -1,8 +1,6 @@
 import os, sys
 import pickle
 import argparse
-
-
 from matplotlib import rcParams
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import make_scorer
@@ -49,7 +47,6 @@ class RFPredictor(object):
         plt.ylabel("")
         plt.title("RF Importance Score")
         plt.show()
-        print(important_features)
 
 
     # ------------------------------------
@@ -161,11 +158,11 @@ class RFPredictor(object):
 
 if __name__ == '__main__':
 
-    #parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
-    #parser.add_argument('file', type=str, help="file containing PE file features")
-    #args = parser.parse_args()
+    parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
+    parser.add_argument('file', type=str, help="file containing PE file features")
+    args = parser.parse_args()
 
-    RFPredictor('features_good_bad.csv').run()
+    RFPredictor(args.file).run()
 
 
 

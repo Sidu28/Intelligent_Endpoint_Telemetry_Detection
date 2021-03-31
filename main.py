@@ -13,20 +13,10 @@ import pefile
 # import lief
 
 # Relevant modules
-from features.asm import ASMExtractor
-from features.section_info import SectionInfoExtractor
-from features.checksum import ChecksumExtractor
-from features.import_info import ImportInfoExtractor
-#from features.virustotal import VirusTotalExtractor
+import features
+import feature_utils
 
-# Dictionary of available feature extractors, along with keyword arguments
-feature_extractors = {
-  ASMExtractor: None,
-  SectionInfoExtractor: None,
-  ChecksumExtractor: None,
-  ImportInfoExtractor: None,
-  #VirusTotalExtractor: None # should the API key be a keyword argument?
-}
+feature_extractors = feature_utils.DEFAULT_FEATURE_EXTRACTORS
 
 if __name__ == '__main__':
 
@@ -51,8 +41,11 @@ if __name__ == '__main__':
   if args.file and args.dir:
     parser.error('specify either directory or file')
 
-  if args.dir:
+  if args.file:
+    features = feature_utils.extract_features(args.file, feature_extractors)
+    pprint(features)
 
+  elif args.dir:
     rows = []
 
     for file in os.listdir(args.dir):
@@ -61,12 +54,9 @@ if __name__ == '__main__':
         features = {}
 
         try:
-          for extractor in feature_extractors:
-            kwargs = feature_extractors[extractor]
-            e = extractor(file)
-            features.update(e.extract(kwargs=kwargs))
-
+          features = feature_utils.extract_features(file, feature_extractors)
           rows.append(features)
+
         except Exception:
           continue
 
@@ -88,17 +78,6 @@ if __name__ == '__main__':
     for ax, col in zip(axes, df.columns):
       plot = sns.distplot(df[col], ax=ax)
     plt.savefig(directory_name+'/images/image_' + name + ".png")
-
-  #Print basic features for a specified file
-  elif args.file:
-      features = {}
-
-      for extractor in feature_extractors:
-        kwargs = feature_extractors[extractor]
-        e = extractor(args.file)
-        features.update(e.extract(kwargs=kwargs))
-
-      pprint(features)
 
   #Extract good and bad features, save them separately
   elif args.good and args.bad:

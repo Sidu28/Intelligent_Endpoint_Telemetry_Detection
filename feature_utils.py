@@ -7,7 +7,7 @@ import features
 Default available feature extractors
 """
 # Dictionary of available feature extractors, along with keyword arguments
-DEFAULT_FEATURE_EXTRACTORS = {
+NUMERIC_FEATURE_EXTRACTORS = {
   features.asm.ASMExtractor: None,
   features.section_info.SectionInfoExtractor: None,
   features.checksum.ChecksumExtractor: None,
@@ -15,10 +15,13 @@ DEFAULT_FEATURE_EXTRACTORS = {
   #VirusTotalExtractor: None # should the API key be a keyword argument?
 }
 
+ALPHABETICAL_FEATURE_EXTRACTORS = {
+  features.imported_symbols.ImportedSymbolsExtractor: None
+
+}
 """
 Extract features from a file path given a dictionary
 of features to extract.
-
 feature_extractors example:
   feature_extractors = {
     features.asm.ASMExtractor: None,

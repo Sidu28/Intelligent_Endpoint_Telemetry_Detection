@@ -7,3 +7,4 @@ def test_rf():
 
     avg = sum(rmse)/len(rmse)
     assert(avg < 1)
+

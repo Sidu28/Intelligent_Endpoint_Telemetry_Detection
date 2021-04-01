@@ -13,10 +13,10 @@ import pefile
 # import lief
 
 # Relevant modules
-import features
 import feature_utils
 
-feature_extractors = feature_utils.DEFAULT_FEATURE_EXTRACTORS
+numeric_feature_extractors = feature_utils.NUMERIC_FEATURE_EXTRACTORS
+alphabetical_feature_extractors = feature_utils.ALPHABETICAL_FEATURE_EXTRACTORS
 
 if __name__ == '__main__':
 
@@ -24,11 +24,12 @@ if __name__ == '__main__':
   parser.add_argument('--file', type=str, required=False, help="Input PE file to extract features for")
   parser.add_argument('--dir', type=str, required=False, help="Directory containing PE files to extract features for")
   parser.add_argument('--label', type=int, required=False, default=1, help="Label for the PE Files you are processing")
-  parser.add_argument('--good', type=str, required=False, help="Directory containing good PE files to extract features for")
-  parser.add_argument('--bad', type=str, required=False, help="Directory containing bad PE files to extract features for")
+  parser.add_argument('--good', type=str, required=False, help="CSV of good PE file-features")
+  parser.add_argument('--bad', type=str, required=False, help="CSV of bad PE file-features")
 
   args = parser.parse_args()
 
+  #Creating a directory and naming for outputs
   name = str(random.randint(1111, 9999))
   directory_name = 'data_' + name
   directory = os.path.join(os.getcwd(), 'data')
@@ -37,15 +38,27 @@ if __name__ == '__main__':
 
   os.chdir(os.getcwd()+'/data')
 
-
+  #We either specify a large directory of files or a single file to examine
   if args.file and args.dir:
     parser.error('specify either directory or file')
 
-  if args.file:
-    features = feature_utils.extract_features(args.file, feature_extractors)
-    pprint(features)
+  elif args.file:
+    '''
+    Print basic features for a specified file, both numeric and alphabetical features
+    '''
 
-  elif args.dir:
+    num_features = feature_utils.extract_features(args.file, numeric_feature_extractors)
+    alpha_features = feature_utils.extract_features(args.file, alphabetical_feature_extractors)
+    pprint("Numerical Features: ", num_features)
+    pprint("Alphabetical/String Features: ", alpha_features)
+
+
+  if args.dir:
+    '''
+    If a directory is specified, we iterate through it, extracting numerical features
+    and saving them to a csv file which is in the 'data' directory
+    '''
+
     rows = []
 
     for file in os.listdir(args.dir):
@@ -54,9 +67,8 @@ if __name__ == '__main__':
         features = {}
 
         try:
-          features = feature_utils.extract_features(file, feature_extractors)
+          features = feature_utils.extract_features(args.file, numeric_feature_extractors)
           rows.append(features)
-
         except Exception:
           continue
 
@@ -79,8 +91,11 @@ if __name__ == '__main__':
       plot = sns.distplot(df[col], ax=ax)
     plt.savefig(directory_name+'/images/image_' + name + ".png")
 
-  #Extract good and bad features, save them separately
+
   elif args.good and args.bad:
+    '''
+    Extract good and bad features, save them separately as individual csv files
+    '''
     df_good = pd.read_csv(args.good)
     df_bad = pd.read_csv(args.bad)
     common_cols = pd.Series(np.intersect1d(df_good.columns.values, df_bad.columns.values))

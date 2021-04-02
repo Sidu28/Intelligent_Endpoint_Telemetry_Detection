@@ -26,6 +26,7 @@ if __name__ == '__main__':
   parser.add_argument('--label', type=int, required=False, default=1, help="Label for the PE Files you are processing")
   parser.add_argument('--good', type=str, required=False, help="CSV of good PE file-features")
   parser.add_argument('--bad', type=str, required=False, help="CSV of bad PE file-features")
+  parser.add_argument('--n', type=int, required=False, help='size of n-gram to be generated')
 
   args = parser.parse_args()
 
@@ -46,11 +47,10 @@ if __name__ == '__main__':
     '''
     Print basic features for a specified file, both numeric and alphabetical features
     '''
-
     num_features = feature_utils.extract_features(args.file, numeric_feature_extractors)
-    alpha_features = feature_utils.extract_features(args.file, alphabetical_feature_extractors)
-    pprint("Numerical Features: ", num_features)
-    pprint("Alphabetical/String Features: ", alpha_features)
+    alpha_features = feature_utils.extract_features(args.file, alphabetical_feature_extractors, numeric=False)
+    print("Numerical Features: ", num_features)
+    print("Alphabetical/String Features: ", alpha_features)
 
 
   if args.dir:

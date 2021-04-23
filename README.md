@@ -35,6 +35,8 @@ Build and serve the frontend (in `webapp/frontend`), accessed at `127.0.0.1:3000
 npm install -g serve
 npm run build
 serve -s build -l 3000
+
+
 ```
 ### CLI Instructions
 
@@ -67,6 +69,7 @@ python3 random_forest.py --file=[FILENAME]
 Train the simple Neural Net classifier
 ```
 python3 binary_classifier.py -train --file='[FEATURE CSV]'
+
 ```
 
 Use trained NN to predict

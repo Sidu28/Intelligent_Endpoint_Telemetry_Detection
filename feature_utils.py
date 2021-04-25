@@ -2,7 +2,7 @@
 Utilities to aid in feature extraction from a PE file.
 """
 import features
-import util
+import os
 import pandas as pd
 
 """
@@ -35,6 +35,12 @@ feature_extractors example:
   }
 """
 
+def get_features_names():
+    parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+    df = pd.read_csv(parent_dir+'/feature_list.csv')
+    column_names = df.columns
+    return column_names
+
 def extract_features(file_path, feature_extractors, n=5, numeric=True):
     features = {}
 
@@ -58,6 +64,6 @@ def extract_features(file_path, feature_extractors, n=5, numeric=True):
         else:
           features.update(e.extract(kwargs=kwargs))
 
-    df = pd.DataFrame(data=[features], columns=util.get_features())
+    df = pd.DataFrame(data=[features], columns=get_features_names())
     sparse_feature_vector = list(df.iloc[0,:])
     return features, sparse_feature_vector

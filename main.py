@@ -87,6 +87,7 @@ if __name__ == '__main__':
           features,_ = feature_utils.extract_features(file, numeric_feature_extractors)
 
           rows.append(features)
+
         except Exception:
           continue
 

@@ -39,6 +39,10 @@ class App extends Component {
   handleAnalysisClick = (event) => {
     event.preventDefault();
     const data = new FormData();
+    if (!this.uploadInput) {
+      alert("No file has yet been uploaded. Please upload a file before attempting to analyze.")
+      return;
+    }
     data.append('file', this.uploadInput);
     this.setState({ isLoading: true });
 
@@ -49,6 +53,9 @@ class App extends Component {
     .then(response => response.json())
     .then((response) => {
       // TODO: Style response.output
+      if (response.statusCode != 200) {
+        alert(response.status)
+      }
       this.setState({
         result: response.output,
         isLoading: false

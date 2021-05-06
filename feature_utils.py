@@ -4,6 +4,7 @@ Utilities to aid in feature extraction from a PE file.
 import features
 import os
 import pandas as pd
+import pefile
 
 """
 Default available feature extractors
@@ -34,6 +35,13 @@ feature_extractors example:
     features.import_info.ImportInfoExtractor: None
   }
 """
+
+def is_valid_pefile(file_path):
+  try:
+    pe = pefile.PE(file_path)
+    return True
+  except Exception as e:
+    return False
 
 def is_nan(value):
   return value != value

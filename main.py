@@ -28,7 +28,7 @@ if __name__ == '__main__':
   parser.add_argument('--label', type=int, required=False, default=1, help="Label for the PE Files you are processing")
   parser.add_argument('--good', type=str, required=False, help="CSV of good PE file-features")
   parser.add_argument('--bad', type=str, required=False, help="CSV of bad PE file-features")
-  parser.add_argument("--plot", type=Bool, required=False, help='generate distributions of image features')
+  parser.add_argument("--plot", type=bool, required=False, help='generate distributions of image features')
 
   parser.add_argument('--ngram', type=int, required=False, help='size of n-gram to be generated')
   parser.add_argument('--select', type=str, required=False, nargs='+', help='Input CSV file (arg[0]), save to arg[1]')

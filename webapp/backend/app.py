@@ -70,6 +70,14 @@ class MainClass(Resource):
       filename = secure_filename(file.filename)
       file.save(UPLOAD_FOLDER + filename)
 
+      if not feature_utils.is_valid_pefile(UPLOAD_FOLDER + filename):
+        print("ERROR: Not a valid PE file", UPLOAD_FOLDER + filename)
+        return jsonify({
+          "statusCode": 500,
+          "status": "Invalid PE file: could not make a prediction.",
+          "output": "Invalid PE file.",
+        })
+
       file_md5 = hashlib.md5(open(UPLOAD_FOLDER + filename, 'rb').read()).hexdigest()
 
       # TODO: Need a step here to search for a file's existence in the database
@@ -107,6 +115,7 @@ class MainClass(Resource):
       print("ERROR", error, os.getcwd())
       return jsonify({
         "statusCode": 500,
-        "status": "Could not make prediction",
+        "status": "An error occurred. Please try again.",
+        "output": "An error occurred. Please try again.",
         "error": str(error)
       })

@@ -25,7 +25,6 @@ class BinaryClassifier(object):
 
         model = keras.Sequential([
             keras.layers.Dense(64, activation=tf.nn.relu),
-            #keras.layers.Dense(8, activation=tf.nn.relu),
             keras.layers.Dense(1, activation=tf.nn.sigmoid),
         ])
 
@@ -46,15 +45,21 @@ class BinaryClassifier(object):
 
         print('saved model to disk')
 
-    def predict(self, model):
+    def predict(self, model, file):
 
         model = keras.models.load_model(model)
-        X, _ = make_blobs(n_samples=1, centers=2, n_features=1088, random_state=1)
+        #X, _ = make_blobs(n_samples=1, centers=2, n_features=1088, random_state=1)
+        df = pd.read_csv(file)
+        properties = list(df.columns.values)
+        properties.remove('label')
+        X = df[properties]
+        y_test = df['label']
+
         # make a prediction
         ynew = np.argmax(model.predict(X), axis=-1)
         # show the inputs and predicted outputs
-        for i in range(len(X)):
-            print("X=%s, Predicted=%s" % (X[i], ynew[i]))
+        for i in range(len(ynew)):
+            print("X=%s, Truth=%s, Predicted=%s" % (i,y_test[i], ynew[i]))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Execute feature extraction for an input PE file")
@@ -62,6 +67,7 @@ if __name__ == '__main__':
     parser.add_argument('-predict', action='store_true')
     parser.add_argument('--file', type=str, required=False, help="Input file for training")
     parser.add_argument('--model', type=str, required=False, help="Input file for training")
+    parser.add_argument('--test_data', type=str, required=False, help="test file path")
 
 
     args = parser.parse_args()
@@ -75,7 +81,7 @@ if __name__ == '__main__':
 
     if args.predict:
         if os.path.exists(args.model):
-            bc.predict(args.model)
+            bc.predict(args.model, args.test_data)
         else:
             parser.error('no model found')
 

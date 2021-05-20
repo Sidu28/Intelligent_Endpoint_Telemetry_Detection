@@ -41,7 +41,6 @@ if __name__ == '__main__':
 
 
   args = parser.parse_args()
-
   name = str(random.randint(1111, 9999))
 
   #Creating a directory and naming for outputs
@@ -64,8 +63,10 @@ if __name__ == '__main__':
     '''
     num_features,_ = feature_utils.extract_features(args.file, numeric_feature_extractors)
     alpha_features,_ = feature_utils.extract_features(args.file, alphabetical_feature_extractors, numeric=False)
-    print("Numerical Features: ", num_features)
-    print("Alphabetical/String Features: ", alpha_features)
+    for key, value in num_features.items():
+      print(key, ' : ', value)
+    for key, value in alpha_features.items():
+      print(key, ' : ', value)
 
 
 
@@ -77,7 +78,6 @@ if __name__ == '__main__':
     '''
 
     rows = []
-
     for file in os.listdir(args.dir):
       if not file.startswith('.'):
         file = os.path.join(args.dir, file)
@@ -131,7 +131,6 @@ if __name__ == '__main__':
     idx=0
 
     while idx < num_cols:
-
       for i,df in enumerate(df_list):
         fig, axes = plt.subplots(ncols=10, figsize=(22.9, 5))
         for ax, col in zip(axes, df.columns[idx:idx+10]):

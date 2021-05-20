@@ -47,8 +47,8 @@ def is_nan(value):
   return value != value
 
 def get_features_names(feature_list_dir_prefix='.'):
-    #parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-    df = pd.read_csv(feature_list_dir_prefix + '/feature_list.csv')
+    parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+    df = pd.read_csv(parent_dir + '/feature_list.csv')
     column_names = df.columns
     return column_names
 

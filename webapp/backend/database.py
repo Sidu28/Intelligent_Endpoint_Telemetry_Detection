@@ -98,6 +98,17 @@ class MetaDatabase:
     cursor.execute(insert_query, (file_md5, ))
     self.database.commit()
     return cursor.lastrowid if cursor.lastrowid else None
+  
+  def search_md5(self, file_md5):
+    cursor = self.database.cursor()
+    search_query = (
+      "SELECT * "
+      "FROM `file_metadata`"
+      "WHERE `md5` = %s"
+    )
+    cursor.execute(search_query, (file_md5, ))
+    rows = cursor.fetchall()
+    return rows
 
 class FeatureDatabase:
   def __init__(self, num_dimensions):

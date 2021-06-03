@@ -82,26 +82,44 @@ class MainClass(Resource):
 
       # TODO: Need a step here to search for a file's existence in the database
       # and return the database values if present, perhaps by hash first.
-
-      # Run analysis
-      features, sparse_vector = feature_utils.extract_features(UPLOAD_FOLDER + filename, feature_extractors, feature_list_dir_prefix='../..')
-      features = str(features)
+      #if feature_database.search_primary_key(primary_key)
+      existing_entries = meta_database.search_md5(file_md5)
+      if len(existing_entries) > 0:
+        latest_entry_id = existing_entries[-1][0]
+      else:
+        latest_entry_id = -1
       
-      # Store the sparse feature vector in a reasonable way
-      # TODO: This needs to be consistent for every future extension. How do we manage this?
-      #  without this functionality, it's difficult for people to add new extractors as our
-      #  datbase has a fixed-length feature vector size. For now, we're going to fix
-      #  the feature fector size, but this is a real issue.
+      file_found = False
+      try:
+        sparse_vector = feature_database.search_primary_key(latest_entry_id)
+        file_found = True
+        print("Found this file in both FAISS and SQL databases!")
+        features = "File found!"
+      except Exception as e:
+        print(e)
+        print("\t In English, looks like something broke with FAISS/SQL linking.")
+        print("\t Going the normal route with this file, re-adding it to SQL and FAISS databases.")
+      
+      if not file_found:
+        # Run analysis
+        features, sparse_vector = feature_utils.extract_features(UPLOAD_FOLDER + filename, feature_extractors, feature_list_dir_prefix='../..')
+        features = str(features)
+        
+        # Store the sparse feature vector in a reasonable way
+        # TODO: This needs to be consistent for every future extension. How do we manage this?
+        #  without this functionality, it's difficult for people to add new extractors as our
+        #  datbase has a fixed-length feature vector size. For now, we're going to fix
+        #  the feature fector size, but this is a real issue.
 
-      # Step 1: add the file's meta information to the meta database
-      primary_key = meta_database.add(file_md5)
+        # Step 1: add the file's meta information to the meta database
+        primary_key = meta_database.add(file_md5)
 
-      # Step 2: associate the primary key with the file's feature list in the feature database
-      feature_database.add(primary_key, sparse_vector)
+        # Step 2: associate the primary key with the file's feature list in the feature database
+        feature_database.add(primary_key, sparse_vector)
 
-      # Step 3: sanity checks! (perhaps remove in production)
-      assert feature_database.search_primary_key(primary_key) is not None
-      assert feature_database.search_similarity(sparse_vector, k=1)[1][0] == [primary_key]
+        # Step 3: sanity checks! (perhaps remove in production)
+        assert feature_database.search_primary_key(primary_key) is not None
+        assert feature_database.search_similarity(sparse_vector, k=1)[1][0] == [primary_key]
 
       response = jsonify({
         "statusCode": 200,

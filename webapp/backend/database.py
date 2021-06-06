@@ -58,12 +58,12 @@ class MetaDatabase:
   def _create_database(self, database_name):
     # Check for the existence of our database, create and warn if doesn't exist
     cursor = self.database.cursor()
-    cursor.execute("show databases like %s", (database_name, ))
+    cursor.execute("show databases like ('%s')" % (database_name, ))
     rows = cursor.fetchall()
     
     if len(rows) == 0: 
       print("WARNING: Database %s does not exist, creating it." % database_name)
-      cursor.execute("create database %s", (database_name, ))
+      cursor.execute("create database ('%s')" % (database_name, ))
     else:
       print("INFO: Database %s exists." % database_name)
 
